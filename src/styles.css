@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f7faf9;
+  color: #18312c;
+  font-family: Vazirmatn, sans-serif;
+}
+button,
+input,
+select {
+  font-family: inherit;
+}
+.fade-in {
+  animation: fade 0.35s ease both;
+}
+.slide-up {
+  animation: slide 0.4s ease both;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
