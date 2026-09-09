@@ -36,7 +36,8 @@ export default function PersianCalendar({
           <ChevronRight size={18} />
         </button>
         <b>
-          {months[view.jm - 1]} {view.jy.toLocaleString("fa-IR")}
+          {months[view.jm - 1]}{" "}
+          {view.jy.toLocaleString("fa-IR", { useGrouping: false })}
         </b>
         <button onClick={next} className="rounded-lg p-2 hover:bg-slate-100">
           <ChevronLeft size={18} />
