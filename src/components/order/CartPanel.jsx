@@ -16,28 +16,28 @@ export default function CartPanel({ cart, onChange, onRemove, onCheckout }) {
         </p>
       ) : (
         <>
-          <div className="mt-4 space-y-4">
+          <div className="mt-4 max-h-[560px] space-y-4 overflow-y-auto">
             {items.map((x) => (
-              <div
-                key={x.food.id}
-                className="flex items-center gap-3 border-b pb-4"
-              >
+              <div key={x.id} className="flex items-center gap-3 border-b pb-4">
                 <span className="text-3xl">{x.food.emoji}</span>
                 <div className="min-w-0 flex-1">
                   <b className="block truncate text-sm">{x.food.name}</b>
+                  <span className="mt-1 block text-xs font-semibold text-brand-700">
+                    روز سفارش: {x.day}
+                  </span>
                   <span className="text-xs text-slate-500">
                     {toman(x.food.price * x.qty)}
                   </span>
                   <div className="mt-2 flex items-center gap-2">
                     <button
-                      onClick={() => onChange(x.food.id, x.qty - 1)}
+                      onClick={() => onChange(x.id, x.qty - 1)}
                       className="rounded bg-slate-100 p-1"
                     >
                       <Minus size={14} />
                     </button>
                     <span>{x.qty.toLocaleString("fa-IR")}</span>
                     <button
-                      onClick={() => onChange(x.food.id, x.qty + 1)}
+                      onClick={() => onChange(x.id, x.qty + 1)}
                       className="rounded bg-slate-100 p-1"
                     >
                       <Plus size={14} />
@@ -45,7 +45,7 @@ export default function CartPanel({ cart, onChange, onRemove, onCheckout }) {
                   </div>
                 </div>
                 <button
-                  onClick={() => onRemove(x.food.id, 0)}
+                  onClick={() => onRemove(x.id, 0)}
                   className="text-red-400"
                 >
                   <Trash2 size={17} />

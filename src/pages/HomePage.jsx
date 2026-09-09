@@ -8,8 +8,7 @@ import { todayJalali, jalaliKey, addJalaliDays } from "../utils/jalali";
 import { useToast } from "../hooks/useToast";
 import Toast from "../components/ui/Toast";
 export default function HomePage() {
-  const { user, foods, cart, add, change, clearCart, holidays, menus } =
-    useApp();
+  const { user, foods, cart, add, change, holidays, menus } = useApp();
   const [day, setDay] = useState(todayJalali());
   const { toast, show } = useToast();
   const nav = useNavigate();
@@ -34,7 +33,8 @@ export default function HomePage() {
           برای روزهای خوب آماده‌ایم
         </h1>
         <p className="mt-3 max-w-xl text-brand-50">
-          غذای موردعلاقه فرزندتان را برای روز مجاز انتخاب کنید.
+          غذای موردعلاقه فرزندتان را برای روز مجاز انتخاب کنید. می‌توانید با
+          انتخاب روزهای مختلف، همه را در یک سبد جمع کنید.
         </p>
       </section>
       <div className="grid gap-6 lg:grid-cols-[280px_1fr_330px]">
@@ -42,13 +42,14 @@ export default function HomePage() {
           <h2 className="mb-3 font-bold">۱. انتخاب روز</h2>
           <PersianCalendar
             value={day}
-            onChange={(d) => {
-              setDay(d);
-              clearCart();
-            }}
+            onChange={setDay}
             holidays={holidays}
             disabledDate={(d) => jalaliKey(d) === tomorrowKey && tomorrowClosed}
           />
+          <p className="mt-3 rounded-xl bg-brand-50 p-3 text-xs leading-6 text-brand-700">
+            با انتخاب روز جدید، سبد شما حفظ می‌شود و می‌توانید غذای همان روز را
+            اضافه کنید.
+          </p>
         </div>
         <section>
           <h2 className="mb-3 font-bold">

@@ -20,15 +20,18 @@ export function AppProvider({ children }) {
   useEffect(() => store.set("kl_holidays", holidays), [holidays]);
   useEffect(() => store.set("kl_menus", menus), [menus]);
   const add = (food, day) =>
-    setCart((c) => ({
-      ...c,
-      [food.id]: { food, day, qty: (c[food.id]?.qty || 0) + 1 },
-    }));
+    setCart((c) => {
+      const itemId = `${food.id}__${day}`;
+      return {
+        ...c,
+        [itemId]: { id: itemId, food, day, qty: (c[itemId]?.qty || 0) + 1 },
+      };
+    });
   const change = (id, qty) =>
     setCart((c) => {
       const n = { ...c };
       if (qty <= 0) delete n[id];
-      else n[id] = { ...n[id], qty };
+      else if (n[id]) n[id] = { ...n[id], qty };
       return n;
     });
   const value = useMemo(

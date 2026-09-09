@@ -5,8 +5,8 @@ export const seedUser = {
   nationalId: "0012345678",
   level: "دبستان",
   grade: "پنجم",
-  school: "دبستان رزمجویی",
-  address: "شیراز، شهرک والفجر",
+  school: "دبستان فرهنگ",
+  address: "تهران، خیابان ولیعصر",
 };
 export const seedHolidays = [];
 export const seedMenus = {};

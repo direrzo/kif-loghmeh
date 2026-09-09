@@ -1,4 +1,5 @@
 import { toman } from "../../utils/format";
+
 export default function Invoice({ order }) {
   return (
     <div className="rounded-2xl border bg-white p-5">
@@ -9,13 +10,23 @@ export default function Invoice({ order }) {
         </div>
         <span className="text-sm text-brand-700">{order.date}</span>
       </div>
-      <div className="my-4 space-y-2">
-        {order.items.map((i) => (
-          <div className="flex justify-between text-sm" key={i.food.id}>
-            <span>
-              {i.food.name} × {i.qty.toLocaleString("fa-IR")}
-            </span>
-            <b>{toman(i.food.price * i.qty)}</b>
+      <div className="my-4 space-y-3">
+        {order.items.map((item, index) => (
+          <div
+            className="flex justify-between gap-3 border-b border-slate-100 pb-3 text-sm"
+            key={item.id || `${item.food.id}-${item.day || index}`}
+          >
+            <div>
+              <span className="block">
+                {item.food.name} × {item.qty.toLocaleString("fa-IR")}
+              </span>
+              {item.day && (
+                <span className="mt-1 block text-xs text-brand-700">
+                  روز سفارش: {item.day}
+                </span>
+              )}
+            </div>
+            <b>{toman(item.food.price * item.qty)}</b>
           </div>
         ))}
       </div>
