@@ -12,9 +12,9 @@ export default function AboutPage() {
       </p>
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {[
-          "تقویم جلالی واقعی",
+          "پنل مدیریت",
           "منوی اختصاصی روزانه",
-          "ذخیره‌سازی LocalStorage",
+          "ذخیره‌سازی لوکال",
         ].map((x) => (
           <div
             className="rounded-2xl bg-brand-50 p-4 text-center font-semibold text-brand-700"

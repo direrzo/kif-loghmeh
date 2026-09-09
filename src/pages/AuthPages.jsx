@@ -109,15 +109,19 @@ export function RegisterPage() {
 }
 function Auth({ title, children }) {
   return (
-    <div className="mx-auto max-w-lg rounded-3xl border bg-white p-6 shadow-sm md:p-9">
-      <div className="mb-7 text-center">
-        <span className="text-4xl">🍱</span>
-        <h1 className="mt-3 text-2xl font-extrabold">{title}</h1>
-        <p className="mt-2 text-sm text-slate-500">
-          کیف لقمه؛ سفارش غذای مدرسه
-        </p>
+    <div className="flex min-h-[calc(100vh-150px)] items-center justify-center py-8">
+      <div className="w-full max-w-lg rounded-[2rem] border border-slate-100 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-9">
+        <div className="mb-7 text-center">
+          <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand-700 text-3xl text-white shadow-brand">
+            🍱
+          </span>
+          <h1 className="mt-4 text-2xl font-black text-slate-900">{title}</h1>
+          <p className="mt-2 text-sm text-slate-500">
+            کیف لقمه؛ سفارش غذای مدرسه
+          </p>
+        </div>
+        {children}
       </div>
-      {children}
     </div>
   );
 }

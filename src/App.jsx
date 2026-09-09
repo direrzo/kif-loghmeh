@@ -5,16 +5,13 @@ import AdminLayout from "./layouts/AdminLayout";
 import LandingPage from "./pages/LandingPage";
 import { LoginPage, RegisterPage } from "./pages/AuthPages";
 import AboutPage from "./pages/AboutPage";
-import HomePage from "./pages/HomePage";
+import HomeModernPage from "./pages/HomeModernPage";
 import OrdersHistorySafePage from "./pages/OrdersHistorySafePage";
 import PaymentSafePage from "./pages/PaymentSafePage";
-import {
-  AdminLogin,
-  AdminDashboard,
-  AdminDailyMenu,
-  AdminHolidays,
-} from "./pages/AdminPages";
-import AdminFoodsPage from "./pages/AdminFoodsPage";
+import AdminDashboardModernPage from "./pages/AdminDashboardModernPage";
+import AdminLoginCenteredPage from "./pages/AdminLoginCenteredPage";
+import { AdminDailyMenu, AdminHolidays } from "./pages/AdminPages";
+import AdminFoodsPopularPage from "./pages/AdminFoodsPopularPage";
 import AdminOrdersSafePage from "./pages/AdminOrdersSafePage";
 function Guard({ admin = false, member = false, children }) {
   const c = useApp();
@@ -42,7 +39,7 @@ function App() {
             path="/home"
             element={
               <Guard>
-                <HomePage />
+                <HomeModernPage />
               </Guard>
             }
           />
@@ -63,13 +60,13 @@ function App() {
             }
           />
         </Route>
-        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/login" element={<AdminLoginCenteredPage />} />
         <Route element={<AdminLayout />}>
           <Route
             path="/admin"
             element={
               <Guard admin>
-                <AdminDashboard />
+                <AdminDashboardModernPage />
               </Guard>
             }
           />
@@ -77,7 +74,7 @@ function App() {
             path="/admin/foods"
             element={
               <Guard admin>
-                <AdminFoodsPage />
+                <AdminFoodsPopularPage />
               </Guard>
             }
           />

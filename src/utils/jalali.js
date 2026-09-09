@@ -1,3 +1,114 @@
-const months=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];const week=['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه'];export {months,week};
-export function gregorianToJalali(gy,gm,gd){let gdm=[0,31,59,90,120,151,181,212,243,273,304,334],jy=gy<=1600?0:979;gy-=gy<=1600?621:1600;let gy2=gm>2?gy+1:gy;let days=365*gy+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)-80+gd+gdm[gm-1];jy+=33*Math.floor(days/12053);days%=12053;jy+=4*Math.floor(days/1461);days%=1461;if(days>365){jy+=Math.floor((days-1)/365);days=(days-1)%365}let jm=days<186?1+Math.floor(days/31):7+Math.floor((days-186)/30);let jd=1+(days<186?days%31:(days-186)%30);return {jy,jm,jd}}
-export function todayJalali(){const d=new Date();return gregorianToJalali(d.getFullYear(),d.getMonth()+1,d.getDate())}export function jalaliKey({jy,jm,jd}){return `${jy}/${String(jm).padStart(2,'0')}/${String(jd).padStart(2,'0')}`}export function jalaliToGregorian(jy,jm,jd){let gy=jy+621,days=(jy-979)*365+Math.floor((jy-979)/33)*8+Math.floor(((jy-979)%33+3)/4)+78+jd+(jm<7?(jm-1)*31:(jm-7)*30+186);gy+=400*Math.floor(days/146097);days%=146097;if(days>36524){gy+=100*Math.floor(--days/36524);days%=36524;if(days>=365)days++}gy+=4*Math.floor(days/1461);days%=1461;if(days>365){gy+=Math.floor((days-1)/365);days=(days-1)%365}let gd=days+1,gm;if(days<186)gm=1+Math.floor(days/31),gd=days%31+1;else{let x=days-186;gm=7+Math.floor(x/30);gd=x%30+1}return {gy,gm,gd}}export function addJalaliDays(date,n){const g=jalaliToGregorian(date.jy,date.jm,date.jd),d=new Date(g.gy,g.gm-1,g.gd);d.setDate(d.getDate()+n);return gregorianToJalali(d.getFullYear(),d.getMonth()+1,d.getDate())}export function compareJalali(a,b){return jalaliKey(a).localeCompare(jalaliKey(b))}export function isJalaliLeap(jy){const a=jalaliToGregorian(jy,12,29),b=jalaliToGregorian(jy+1,1,1);return new Date(b.gy,b.gm-1,b.gd)-new Date(a.gy,a.gm-1,a.gd)>86400000}export function calendarMonth(jy,jm){const days=jm<=6?31:(jm<=11?30:(isJalaliLeap(jy)?30:29)),first=jalaliToGregorian(jy,jm,1),start=(new Date(first.gy,first.gm-1,first.gd).getDay()+1)%7,result=[];for(let i=0;i<start;i++)result.push(null);for(let d=1;d<=days;d++)result.push({jy,jm,jd:d});return result}
+const months = [
+  "فروردین",
+  "اردیبهشت",
+  "خرداد",
+  "تیر",
+  "مرداد",
+  "شهریور",
+  "مهر",
+  "آبان",
+  "آذر",
+  "دی",
+  "بهمن",
+  "اسفند",
+];
+const week = [
+  "شنبه",
+  "یکشنبه",
+  "دوشنبه",
+  "سه‌شنبه",
+  "چهارشنبه",
+  "پنجشنبه",
+  "جمعه",
+];
+export { months, week };
+export function gregorianToJalali(gy, gm, gd) {
+  let gdm = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
+    jy = gy <= 1600 ? 0 : 979;
+  gy -= gy <= 1600 ? 621 : 1600;
+  let gy2 = gm > 2 ? gy + 1 : gy;
+  let days =
+    365 * gy +
+    Math.floor((gy2 + 3) / 4) -
+    Math.floor((gy2 + 99) / 100) +
+    Math.floor((gy2 + 399) / 400) -
+    80 +
+    gd +
+    gdm[gm - 1];
+  jy += 33 * Math.floor(days / 12053);
+  days %= 12053;
+  jy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if (days > 365) {
+    jy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  let jm =
+    days < 186 ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30);
+  let jd = 1 + (days < 186 ? days % 31 : (days - 186) % 30);
+  return { jy, jm, jd };
+}
+export function todayJalali() {
+  const d = new Date();
+  return gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate());
+}
+export function jalaliKey({ jy, jm, jd }) {
+  return `${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`;
+}
+export function jalaliToGregorian(jy, jm, jd) {
+  let gy = jy + 621,
+    days =
+      (jy - 979) * 365 +
+      Math.floor((jy - 979) / 33) * 8 +
+      Math.floor((((jy - 979) % 33) + 3) / 4) +
+      78 +
+      jd +
+      (jm < 7 ? (jm - 1) * 31 : (jm - 7) * 30 + 186);
+  gy += 400 * Math.floor(days / 146097);
+  days %= 146097;
+  if (days > 36524) {
+    gy += 100 * Math.floor(--days / 36524);
+    days %= 36524;
+    if (days >= 365) days++;
+  }
+  gy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if (days > 365) {
+    gy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  let gd = days + 1,
+    gm;
+  if (days < 186) ((gm = 1 + Math.floor(days / 31)), (gd = (days % 31) + 1));
+  else {
+    let x = days - 186;
+    gm = 7 + Math.floor(x / 30);
+    gd = (x % 30) + 1;
+  }
+  return { gy, gm, gd };
+}
+export function addJalaliDays(date, n) {
+  const g = jalaliToGregorian(date.jy, date.jm, date.jd),
+    d = new Date(g.gy, g.gm - 1, g.gd);
+  d.setDate(d.getDate() + n);
+  return gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate());
+}
+export function compareJalali(a, b) {
+  return jalaliKey(a).localeCompare(jalaliKey(b));
+}
+export function isJalaliLeap(jy) {
+  const a = jalaliToGregorian(jy, 12, 29),
+    b = jalaliToGregorian(jy + 1, 1, 1);
+  return (
+    new Date(b.gy, b.gm - 1, b.gd) - new Date(a.gy, a.gm - 1, a.gd) > 86400000
+  );
+}
+export function calendarMonth(jy, jm) {
+  const days = jm <= 6 ? 31 : jm <= 11 ? 30 : isJalaliLeap(jy) ? 30 : 29,
+    first = jalaliToGregorian(jy, jm, 1),
+    start = (new Date(first.gy, first.gm - 1, first.gd).getDay() + 1) % 7,
+    result = [];
+  for (let i = 0; i < start; i++) result.push(null);
+  for (let d = 1; d <= days; d++) result.push({ jy, jm, jd: d });
+  return result;
+}

@@ -1,14 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 * {
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
-  background: #f7faf9;
-  color: #18312c;
+  background: #f5f8f6;
+  color: #19332d;
   font-family: Vazirmatn, sans-serif;
 }
 button,
@@ -21,6 +24,23 @@ select {
 }
 .slide-up {
   animation: slide 0.4s ease both;
+}
+.glass {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(15, 128, 104, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 128, 104, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.shadow-brand {
+  box-shadow: 0 18px 50px rgba(15, 128, 104, 0.15);
+}
+.text-balance {
+  text-wrap: balance;
 }
 @keyframes fade {
   from {
