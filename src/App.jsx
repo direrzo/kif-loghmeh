@@ -6,16 +6,16 @@ import LandingPage from "./pages/LandingPage";
 import { LoginPage, RegisterPage } from "./pages/AuthPages";
 import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
-import OrdersPage from "./pages/OrdersPage";
-import PaymentPage from "./pages/PaymentPage";
+import OrdersHistorySafePage from "./pages/OrdersHistorySafePage";
+import PaymentSafePage from "./pages/PaymentSafePage";
 import {
   AdminLogin,
   AdminDashboard,
-  AdminFoods,
   AdminDailyMenu,
   AdminHolidays,
-  AdminOrders,
 } from "./pages/AdminPages";
+import AdminFoodsPage from "./pages/AdminFoodsPage";
+import AdminOrdersSafePage from "./pages/AdminOrdersSafePage";
 function Guard({ admin = false, member = false, children }) {
   const c = useApp();
   if (admin) return c.admin ? children : <Navigate to="/admin/login" />;
@@ -50,7 +50,7 @@ function App() {
             path="/orders"
             element={
               <Guard>
-                <OrdersPage />
+                <OrdersHistorySafePage />
               </Guard>
             }
           />
@@ -58,7 +58,7 @@ function App() {
             path="/payment"
             element={
               <Guard>
-                <PaymentPage />
+                <PaymentSafePage />
               </Guard>
             }
           />
@@ -77,7 +77,7 @@ function App() {
             path="/admin/foods"
             element={
               <Guard admin>
-                <AdminFoods />
+                <AdminFoodsPage />
               </Guard>
             }
           />
@@ -101,7 +101,7 @@ function App() {
             path="/admin/orders"
             element={
               <Guard admin>
-                <AdminOrders />
+                <AdminOrdersSafePage />
               </Guard>
             }
           />

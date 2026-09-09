@@ -19,7 +19,17 @@ export default function CartPanel({ cart, onChange, onRemove, onCheckout }) {
           <div className="mt-4 max-h-[560px] space-y-4 overflow-y-auto">
             {items.map((x) => (
               <div key={x.id} className="flex items-center gap-3 border-b pb-4">
-                <span className="text-3xl">{x.food.emoji}</span>
+                <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-brand-50 text-2xl">
+                  {x.food.image ? (
+                    <img
+                      src={x.food.image}
+                      alt={x.food.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    x.food.emoji
+                  )}
+                </div>
                 <div className="min-w-0 flex-1">
                   <b className="block truncate text-sm">{x.food.name}</b>
                   <span className="mt-1 block text-xs font-semibold text-brand-700">

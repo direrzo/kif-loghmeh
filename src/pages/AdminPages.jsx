@@ -3,6 +3,7 @@ import { useApp } from "../context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Field from "../components/ui/Field";
+import FoodImagePicker from "../components/admin/FoodImagePicker";
 import PersianCalendar from "../components/calendar/PersianCalendar";
 import { todayJalali, jalaliKey } from "../utils/jalali";
 import { toman } from "../utils/format";
@@ -90,16 +91,7 @@ export function AdminFoods() {
     if (!f.name || !f.price) return;
     if (foods.some((x) => x.id === f.id))
       setFoods(
-        foods.map((x) =>
-          x.id === f.id
-            ? {
-                ...x,
-                price: +f.price,
-                name: f.name,
-                description: f.description,
-              }
-            : x,
-        ),
+        foods.map((x) => (x.id === f.id ? { ...x, ...f, price: +f.price } : x)),
       );
     else
       setFoods([
@@ -120,7 +112,13 @@ export function AdminFoods() {
         <h1 className="text-2xl font-extrabold">مدیریت غذاها</h1>
         <Button
           onClick={() =>
-            setEditing({ name: "", price: "", description: "", emoji: "🍱" })
+            setEditing({
+              name: "",
+              price: "",
+              description: "",
+              emoji: "🍱",
+              image: "",
+            })
           }
         >
           غذای جدید
@@ -149,7 +147,18 @@ export function AdminFoods() {
               setEditing({ ...editing, description: e.target.value })
             }
           />
-          <div className="flex items-end gap-2">
+          <FoodImagePicker
+            value={editing.image}
+            onChange={(image) => setEditing((prev) => ({ ...prev, image }))}
+            emoji={editing.emoji}
+            onEmojiChange={(emoji) =>
+              setEditing((prev) => ({ ...prev, emoji }))
+            }
+            onSelectIcon={(icon) =>
+              setEditing((prev) => ({ ...prev, emoji: icon, image: "" }))
+            }
+          />
+          <div className="flex items-end gap-2 md:col-span-4">
             <Button>ذخیره</Button>
             <Button
               type="button"
@@ -167,7 +176,17 @@ export function AdminFoods() {
             className="flex items-center gap-3 rounded-2xl border bg-white p-4"
             key={f.id}
           >
-            <span className="text-3xl">{f.emoji}</span>
+            <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-brand-50 text-3xl">
+              {f.image ? (
+                <img
+                  src={f.image}
+                  alt={f.name}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                f.emoji
+              )}
+            </div>
             <div className="flex-1">
               <b>{f.name}</b>
               <p className="text-sm text-slate-500">{toman(f.price)}</p>
