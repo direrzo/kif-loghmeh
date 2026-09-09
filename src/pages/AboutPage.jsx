@@ -11,11 +11,7 @@ export default function AboutPage() {
         سفارش دهند و وضعیت سفارش را پیگیری کنند.
       </p>
       <div className="mt-8 grid gap-4 md:grid-cols-3">
-        {[
-          "پنل مدیریت",
-          "منوی اختصاصی روزانه",
-          "ذخیره‌سازی لوکال",
-        ].map((x) => (
+        {["پنل مدیریت", "منوی اختصاصی روزانه", "ذخیره‌سازی لوکال"].map((x) => (
           <div
             className="rounded-2xl bg-brand-50 p-4 text-center font-semibold text-brand-700"
             key={x}

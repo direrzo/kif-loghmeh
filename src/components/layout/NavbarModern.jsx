@@ -29,6 +29,7 @@ export default function NavbarModern() {
     : [
         ["/home", "خانه"],
         ["/orders", "سفارش‌های من"],
+        ["/profile", "پروفایل من"],
         ["/about", "درباره ما"],
       ];
   const logout = () => {

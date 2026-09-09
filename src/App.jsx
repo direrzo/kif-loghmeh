@@ -5,6 +5,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import LandingPage from "./pages/LandingPage";
 import { LoginPage, RegisterPage } from "./pages/AuthPages";
 import AboutPage from "./pages/AboutPage";
+import ProfilePage from "./pages/ProfilePage";
 import HomeModernPage from "./pages/HomeModernPage";
 import OrdersHistorySafePage from "./pages/OrdersHistorySafePage";
 import PaymentSafePage from "./pages/PaymentSafePage";
@@ -48,6 +49,14 @@ function App() {
             element={
               <Guard>
                 <OrdersHistorySafePage />
+              </Guard>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Guard>
+                <ProfilePage />
               </Guard>
             }
           />
